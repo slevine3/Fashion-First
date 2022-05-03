@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { Badge, Search } from "@mui/icons-material";
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { Search } from "@mui/icons-material";
+import Badge from "@mui/material/Badge";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+
 const Container = styled.div`
   height: 60px;
 `;
@@ -9,7 +11,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 0px 20px;
 `;
 
 const Left = styled.div`
@@ -43,11 +45,15 @@ const Logo = styled.h1`
 
 const Right = styled.div`
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 `;
 
 const MenuItem = styled.div`
   font-size: 14px;
   cursor: pointer;
+  margin-left: 25px;
 `;
 
 const Navbar = () => {
@@ -58,7 +64,7 @@ const Navbar = () => {
           <Language>EN</Language>
           <SearchContainer>
             <Input />
-            <Search />
+            <Search style={{color:"gray", fontSize: "16px"}}/>
           </SearchContainer>
         </Left>
         <Center>
@@ -68,7 +74,7 @@ const Navbar = () => {
           <MenuItem>REGISTER</MenuItem>
           <MenuItem>SIGN IN</MenuItem>
           <MenuItem>
-            <Badge badgecontent={4} color="primary">
+            <Badge badgeContent={4} color="primary">
               <ShoppingCartOutlinedIcon />
             </Badge>
           </MenuItem>
