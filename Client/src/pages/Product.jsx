@@ -5,6 +5,10 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import { mobile } from "../responsive";
+import { useState, useEffect } from "react";
+import { publicRequest } from "../requestMethods";
+import { useLocation } from "react-router-dom";
+
 const Container = styled.div``;
 const Wrapper = styled.div`
   padding: 50px;
@@ -111,47 +115,74 @@ const Button = styled.button`
 `;
 
 const Product = () => {
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+  const [product, setProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
+  const [color, setColor] = useState(null);
+  const [size, setSize] = useState(null);
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const response = await publicRequest.get("/products/find/" + id);
+        setProduct(response.data);
+      } catch (error) {}
+    };
+    getProduct();
+  }, [id]);
+
+  const handleQuantity = (type) => {
+    if (type === "decrease") {
+      if (quantity > 1) {
+        setQuantity(quantity - 1);
+      }
+    } else setQuantity(quantity + 1);
+  };
+
+  const handleClick = () => {
+
+  }
   return (
     <Container>
       <Navbar />
       <Announcement />
       <Wrapper>
         <ImgContainer>
-          <Image src="https://placedog.net/500" />
+          <Image src={product.img} />
         </ImgContainer>
 
         <InfoContainer>
-          <Title>Clothing</Title>
-          <Desc>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro
-            similique minima impedit, distinctio illum amet commodi ne
-          </Desc>
-          <Price>$20</Price>
+          <Title>{product.title}</Title>
+          <Desc>{product.desc}</Desc>
+          <Price>$ {product.price}</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-              <FilterColor color="black"></FilterColor>
-              <FilterColor color="darkblue"></FilterColor>
-              <FilterColor color="gray"></FilterColor>
+              {product.color?.map((colors) => (
+                <FilterColor
+                  color={colors}
+                  key={colors}
+                  onClick={() => setColor(colors)}
+                />
+              ))}
             </Filter>
             <Filter>
               <FilterTitle>Size</FilterTitle>
-              <FilterSize>
-                <FilterSizeOption>XS</FilterSizeOption>
-                <FilterSizeOption>S</FilterSizeOption>
-                <FilterSizeOption>M</FilterSizeOption>
-                <FilterSizeOption>L</FilterSizeOption>
-                <FilterSizeOption>XL</FilterSizeOption>
+              <FilterSize onChange={(e) => setSize(e.target.value)}>
+                {product.size?.map((sizes) => (
+                  <FilterSizeOption key={sizes}>{sizes}</FilterSizeOption>
+                ))}
               </FilterSize>
             </Filter>
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
-              <Remove />
-              <Amount>1</Amount>
-              <Add />
+              <Remove onClick={() => handleQuantity("decrease")} />
+              <Amount>{quantity}</Amount>
+              <Add onClick={() => handleQuantity("increase")} />
             </AmountContainer>
-            <Button>Add to Cart</Button>
+            <Button onClick={handleClick}>Add to Cart</Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>
