@@ -157,25 +157,30 @@ const ProductPrice = styled.div`
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
+
   const [stripeToken, setStripeToken] = useState(null);
   const navigate = useNavigate();
 
   const onToken = (token) => {
     setStripeToken(token);
   };
+
   useEffect(() => {
     const makeRequest = async () => {
       try {
         const response = await userRequest.post("/checkout/payment", {
           tokenId: stripeToken.id,
-          amount: cart.total * 100,
+          amount: cart.total*100,
         });
-        navigate("/success", { data: response.data });
-      } catch (error) {}
+        navigate("/success", { state: { data: response.data } });
+      } catch (error) {
+        console.log("error: ", error);
+      }
     };
-    if (stripeToken) makeRequest();
+    stripeToken && makeRequest();
   }, [stripeToken, cart.total, navigate]);
 
+  console.log("stripeToken: ", stripeToken);
   return (
     <Container>
       <Navbar />
