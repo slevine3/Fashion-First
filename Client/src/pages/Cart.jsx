@@ -170,17 +170,19 @@ const Cart = () => {
       try {
         const response = await userRequest.post("/checkout/payment", {
           tokenId: stripeToken.id,
-          amount: cart.total*100,
+          amount: 100,
         });
-        navigate("/success", { state: { data: response.data } });
+        navigate("/success", {
+          state: { stripeData: response.data, products: cart },
+        });
       } catch (error) {
         console.log("error: ", error);
       }
     };
     stripeToken && makeRequest();
+  
   }, [stripeToken, cart.total, navigate]);
 
-  console.log("stripeToken: ", stripeToken);
   return (
     <Container>
       <Navbar />
@@ -252,7 +254,7 @@ const Cart = () => {
               // image={}
               billingAddress
               shippingAddress
-              description={`Your total is ${cart.total}`}
+              description={`Your total is $${cart.total}`}
               amount={cart.total * 100}
               token={onToken}
               stripeKey={KEY}
