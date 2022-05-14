@@ -41,3 +41,8 @@
   margin-right: 5px;
   font-size: 20px !important;
 }
+
+.link {
+  text-decoration: none;
+  color: inherit;
+}
