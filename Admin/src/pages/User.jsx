@@ -6,13 +6,15 @@ import PhoneAndroid from "@material-ui/icons/PhoneAndroid";
 import MailOutline from "@material-ui/icons/MailOutline";
 import LocationSearching from "@material-ui/icons/LocationSearching";
 import Publish from "@material-ui/icons/Publish";
-
+import { Link } from "react-router-dom";
 const User = () => {
   return (
     <div className="user">
       <div className="userTitleContainer">
         <h1 className="editUser">Edit User</h1>
-        <button className="userAddButton">Create</button>
+        <Link to="/newUser">
+          <button className="userAddButton">Create</button>
+        </Link>
       </div>
       <div className="userContainer">
         <div className="userShow">
@@ -106,7 +108,7 @@ const User = () => {
                   className="userUpdateImg"
                 />
                 <label htmlFor="file">
-                  <Publish className="userUpdateIcon"/>
+                  <Publish className="userUpdateIcon" />
                 </label>
                 <input type="file" id="file" style={{ display: "none" }} />
               </div>
