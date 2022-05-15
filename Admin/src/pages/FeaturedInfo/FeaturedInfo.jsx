@@ -11,7 +11,7 @@ const FeaturedInfo = () => {
   useEffect(() => {
     const getIncome = async () => {
       try {
-        const response = await userRequest.get("/order/income");
+        const response = await userRequest.get("/orders/income");
         setIncome(response.data);
         setPercentage(
           (response.data[1].total * 100) / response.data[0].total - 100

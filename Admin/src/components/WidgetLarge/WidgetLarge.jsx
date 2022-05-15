@@ -11,7 +11,7 @@ const WidgetLarge = () => {
   useEffect(() => {
     const getOrders = async () => {
       try {
-        const ordersResponse = await userRequest.get("/order");
+        const ordersResponse = await userRequest.get("/orders");
         setOrders(ordersResponse.data);
 
         const usersResponse = await userRequest.get(`/users`);

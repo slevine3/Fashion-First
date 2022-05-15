@@ -6,6 +6,7 @@ import Chart from "../../components/Chart/Chart";
 
 import PublishIcon from "@material-ui/icons/Publish";
 import { userRequest } from "../../requestMethods";
+import axios from "axios";
 const Product = () => {
   const location = useLocation();
   const productId = location.pathname.split("/")[2];
@@ -32,36 +33,26 @@ const Product = () => {
     []
   );
 
+
   useEffect(() => {
     const getStats = async () => {
       try {
-        const response = await userRequest.get("/income");
-      } catch (error) {
-        console.log(error);
+        const response = await userRequest.get("orders/income?pid=" + productId);
+        const list = response.data.sort((a, b) => {
+          return a._id - b._id;
+        });
+        list.map((item) =>
+          setProductStats((prev) => [
+            ...prev,
+            { name: MONTHS[item._id - 1], Sales: item.total },
+          ])
+        );
+      } catch (err) {
+        console.log(err);
       }
     };
-    getStats()
-  }, []);
-
-  // useEffect(() => {
-  //   const getStats = async () => {
-  //     try {
-  //       const response = await userRequest.get("/income?pid=" + productId);
-  //       const list = response.data.sort((a, b) => {
-  //         return a._id - b._id;
-  //       });
-  //       list.map((item) =>
-  //         setProductStats((prev) => [
-  //           ...prev,
-  //           { name: MONTHS[item._id - 1], Sales: item.total },
-  //         ])
-  //       );
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   getStats();
-  // }, [productId, MONTHS]);
+    getStats();
+  }, [productId, MONTHS]);
 
   return (
     <div className="product">
