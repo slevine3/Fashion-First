@@ -11,17 +11,32 @@ const Topbar = () => {
         </div>
         <div className="topRight">
           <div className="topbarIconContainer">
-            <Badge className="topIconBadge" badgeContent={4} color="error">
+            <Badge
+              className="topIconBadge"
+              badgeContent={4}
+              overlap="rectangular"
+              color="error"
+            >
               <NotificationsNoneIcon />
             </Badge>
           </div>
           <div className="topbarIconContainer">
-            <Badge className="topIconBadge" badgeContent={4} color="error">
+            <Badge
+              className="topIconBadge"
+              badgeContent={4}
+              overlap="rectangular"
+              color="error"
+            >
               <Language />
             </Badge>
           </div>
           <div className="topbarIconContainer">
-            <Badge className="topIconBadge" badgeContent={4} color="error">
+            <Badge
+              className="topIconBadge"
+              badgeContent={4}
+              overlap="rectangular"
+              color="error"
+            >
               <Settings />
             </Badge>
           </div>
