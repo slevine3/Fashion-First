@@ -1,10 +1,30 @@
 import React from "react";
 import "./WidgetLarge.css";
+import { useState, useEffect } from "react";
+import { userRequest } from "../../requestMethods";
+import { format } from "timeago.js";
 
 const WidgetLarge = () => {
+  const [orders, setOrders] = useState([]);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const getOrders = async () => {
+      try {
+        const ordersResponse = await userRequest.get("/order");
+        setOrders(ordersResponse.data);
+
+        const usersResponse = await userRequest.get(`/users`);
+
+        setUsers(usersResponse.data);
+      } catch (error) {}
+    };
+    getOrders();
+  }, []);
   const Button = ({ type }) => {
     return <button className={"widgetLargeButton " + type}>{type}</button>;
   };
+ 
   return (
     <div className="widgetLarge">
       <h3 className="widgetLargeTitle">Latest Transactions</h3>
@@ -15,57 +35,31 @@ const WidgetLarge = () => {
           <th className="widgetLargeTh">Amount</th>
           <th className="widgetLargeTh">Status</th>
         </tr>
-        <tr className="widgetLargeTr">
-          <td className="widgetLargeUser">
-            <img
-              src="https://images.squarespace-cdn.com/content/v1/53b599ebe4b08a2784696956/1504755539389-NUA1FAUO2KA2VU4GLK43/professional-headshots-nyc-051.jpg?format=1000w"
-              alt="headshot"
-              className="widgetLargeImg"
-            />
-            <span className="widgetLargeName">Susan Carol</span>
-          </td>
-          <td className="widgetLargeDate">2 Jun 2021</td>
-          <td className="widgetLargeAmount">$122.00</td>
-          <td className="widgetLargeStatus">
-            <Button type="Approved" />
-          </td>
-        </tr>
-
-        <tr className="widgetLargeTr">
-          <td className="widgetLargeUser">
-            <img src="https://images.squarespace-cdn.com/content/v1/53b599ebe4b08a2784696956/1504755539389-NUA1FAUO2KA2VU4GLK43/professional-headshots-nyc-051.jpg?format=1000w" alt="headshot" className="widgetLargeImg" />
-            <span className="widgetLargeName">Susan Carol</span>
-          </td>
-          <td className="widgetLargeDate">2 Jun 2021</td>
-          <td className="widgetLargeAmount">$122.00</td>
-          <td className="widgetLargeStatus">
-            <Button type="Declined" />
-          </td>
-        </tr>
-
-        <tr className="widgetLargeTr">
-          <td className="widgetLargeUser">
-            <img src="https://images.squarespace-cdn.com/content/v1/53b599ebe4b08a2784696956/1504755539389-NUA1FAUO2KA2VU4GLK43/professional-headshots-nyc-051.jpg?format=1000w" alt="headshot" className="widgetLargeImg" />
-            <span className="widgetLargeName">Susan Carol</span>
-          </td>
-          <td className="widgetLargeDate">2 Jun 2021</td>
-          <td className="widgetLargeAmount">$122.00</td>
-          <td className="widgetLargeStatus">
-            <Button type="Pending" />
-          </td>
-        </tr>
-
-        <tr className="widgetLargeTr">
-          <td className="widgetLargeUser">
-            <img src="https://images.squarespace-cdn.com/content/v1/53b599ebe4b08a2784696956/1504755539389-NUA1FAUO2KA2VU4GLK43/professional-headshots-nyc-051.jpg?format=1000w" alt="headshot" className="widgetLargeImg" />
-            <span className="widgetLargeName">Susan Carol</span>
-          </td>
-          <td className="widgetLargeDate">2 Jun 2021</td>
-          <td className="widgetLargeAmount">$122.00</td>
-          <td className="widgetLargeStatus">
-            <Button type="Approved" />
-          </td>
-        </tr>
+        {orders.map((order, i) => (
+          <tr className="widgetLargeTr" key={i}>
+            <td className="widgetLargeUser">
+              <img
+                src="https://placekitten.com/200/300"
+                alt="User image"
+                className="widgetLargeImg"
+              />
+              <span className="widgetLargeName">
+                {users.map((items) => {
+                  {
+                    // console.log(items._id)
+                    // console.log(order._id)
+                    return items.username;
+                  }
+                })}
+              </span>
+            </td>
+            <td className="widgetLargeDate">{format(order.createdAt)}</td>
+            <td className="widgetLargeAmount">${order.amount}</td>
+            <td className="widgetLargeStatus">
+              <Button type={order.status} />
+            </td>
+          </tr>
+        ))}
       </table>
     </div>
   );
