@@ -44,13 +44,13 @@ const WidgetLarge = () => {
                 className="widgetLargeImg"
               />
               <span className="widgetLargeName">
-                {users.map((items) => {
+                {/* {users.map((items) => {
                   {
                     // console.log(items._id)
                     // console.log(order._id)
                     return items.username;
                   }
-                })}
+                })} */}
               </span>
             </td>
             <td className="widgetLargeDate">{format(order.createdAt)}</td>
