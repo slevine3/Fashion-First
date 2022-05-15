@@ -25,7 +25,11 @@ const Topbar = () => {
               <Settings />
             </Badge>
           </div>
-          <img src="https://placedog.net/500" alt="" className="img topAvatar" />
+          <img
+            src="https://placedog.net/500"
+            alt=""
+            className="img topAvatar"
+          />
         </div>
       </div>
     </div>

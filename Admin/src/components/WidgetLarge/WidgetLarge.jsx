@@ -1,6 +1,6 @@
 import React from "react";
 import "./WidgetLarge.css";
-import headshot1 from "../Headshots/1.jfif";
+
 const WidgetLarge = () => {
   const Button = ({ type }) => {
     return <button className={"widgetLargeButton " + type}>{type}</button>;
@@ -17,7 +17,11 @@ const WidgetLarge = () => {
         </tr>
         <tr className="widgetLargeTr">
           <td className="widgetLargeUser">
-            <img src={headshot1} alt="headshot" className="widgetLargeImg" />
+            <img
+              src="https://images.squarespace-cdn.com/content/v1/53b599ebe4b08a2784696956/1504755539389-NUA1FAUO2KA2VU4GLK43/professional-headshots-nyc-051.jpg?format=1000w"
+              alt="headshot"
+              className="widgetLargeImg"
+            />
             <span className="widgetLargeName">Susan Carol</span>
           </td>
           <td className="widgetLargeDate">2 Jun 2021</td>
@@ -29,7 +33,7 @@ const WidgetLarge = () => {
 
         <tr className="widgetLargeTr">
           <td className="widgetLargeUser">
-            <img src={headshot1} alt="headshot" className="widgetLargeImg" />
+            <img src="https://images.squarespace-cdn.com/content/v1/53b599ebe4b08a2784696956/1504755539389-NUA1FAUO2KA2VU4GLK43/professional-headshots-nyc-051.jpg?format=1000w" alt="headshot" className="widgetLargeImg" />
             <span className="widgetLargeName">Susan Carol</span>
           </td>
           <td className="widgetLargeDate">2 Jun 2021</td>
@@ -41,7 +45,7 @@ const WidgetLarge = () => {
 
         <tr className="widgetLargeTr">
           <td className="widgetLargeUser">
-            <img src={headshot1} alt="headshot" className="widgetLargeImg" />
+            <img src="https://images.squarespace-cdn.com/content/v1/53b599ebe4b08a2784696956/1504755539389-NUA1FAUO2KA2VU4GLK43/professional-headshots-nyc-051.jpg?format=1000w" alt="headshot" className="widgetLargeImg" />
             <span className="widgetLargeName">Susan Carol</span>
           </td>
           <td className="widgetLargeDate">2 Jun 2021</td>
@@ -53,7 +57,7 @@ const WidgetLarge = () => {
 
         <tr className="widgetLargeTr">
           <td className="widgetLargeUser">
-            <img src={headshot1} alt="headshot" className="widgetLargeImg" />
+            <img src="https://images.squarespace-cdn.com/content/v1/53b599ebe4b08a2784696956/1504755539389-NUA1FAUO2KA2VU4GLK43/professional-headshots-nyc-051.jpg?format=1000w" alt="headshot" className="widgetLargeImg" />
             <span className="widgetLargeName">Susan Carol</span>
           </td>
           <td className="widgetLargeDate">2 Jun 2021</td>

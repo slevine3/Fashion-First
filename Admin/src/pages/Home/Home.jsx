@@ -1,9 +1,9 @@
-import Chart from "../components/Chart";
-import FeaturedInfo from "./FeaturedInfo";
+import Chart from "../../components/Chart/Chart";
+import FeaturedInfo from "../FeaturedInfo/FeaturedInfo";
 import "./Home.css";
-import { userData } from "../components/dummyData";
-import WidgetSmall from "../components/WidgetSmall";
-import WidgetLarge from "../components/WidgetLarge";
+import { userData } from "../../components/dummyData";
+import WidgetSmall from "../../components/WidgetSmall/WidgetSmall";
+import WidgetLarge from "../../components/WidgetLarge/WidgetLarge";
 
 const Home = () => {
   return (

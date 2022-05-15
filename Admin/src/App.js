@@ -1,14 +1,14 @@
-import Sidebar from "./components/sidebar/Sidebar";
-import TopBar from "./components/TopBar";
+import Sidebar from "./components/Sidebar/Sidebar";
+import TopBar from "./components/TopBar/TopBar";
 import "./App.css";
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import UserList from "./pages/UserList";
-import User from "./pages/User";
-import NewUser from "./pages/NewUser";
-import ProductList from "./pages/ProductList";
-import Product from "./pages/Product";
-import NewProduct from "./pages/NewProduct";
+import UserList from "./pages/UserList/UserList";
+import User from "./pages/User/User";
+import NewUser from './pages/NewUser/NewUser'
+import Product from "./pages/Product/Product";
+import NewProduct from "./pages/NewProduct/NewProduct";
+import ProductList from './pages/ProductList/ProductList'
 function App() {
   return (
     <BrowserRouter>

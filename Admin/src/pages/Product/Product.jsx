@@ -1,8 +1,8 @@
 import React from "react";
 import "./Product.css";
 import { Link } from "react-router-dom";
-import Chart from "../components/Chart";
-import { productData } from "../components/dummyData";
+import Chart from "../../components/Chart/Chart";
+import { productData } from "../../components/dummyData";
 import PublishIcon from "@material-ui/icons/Publish";
 const Product = () => {
   return (
