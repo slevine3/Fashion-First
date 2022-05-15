@@ -21,7 +21,7 @@ const ProductList = () => {
   deleteProduct(id, dispatch)
   };
   const columns = [
-    { field: "_id", headerName: "ID", width: 220 },
+    { field: "_id", headerName: "Product ID", width: 220 },
     {
       field: "product",
       headerName: "Product",
