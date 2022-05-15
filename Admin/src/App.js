@@ -5,26 +5,41 @@ import Home from "./pages/Home/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import UserList from "./pages/UserList/UserList";
 import User from "./pages/User/User";
-import NewUser from './pages/NewUser/NewUser'
+import NewUser from "./pages/NewUser/NewUser";
 import Product from "./pages/Product/Product";
 import NewProduct from "./pages/NewProduct/NewProduct";
-import ProductList from './pages/ProductList/ProductList'
+import ProductList from "./pages/ProductList/ProductList";
+import Login from "./pages/Login/Login";
+import React from "react";
 function App() {
+  const admin = JSON.parse(
+    JSON.parse(localStorage.getItem("persist:root")).user
+  ).currentUser.isAdmin;
+
   return (
     <BrowserRouter>
-      <TopBar />
-      <div className="container">
-        <Sidebar />
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route path="/users" element={<UserList />} />
-          <Route path="/user/:userId" element={<User />} />
-          <Route path="/newUser" element={<NewUser />} />
-          <Route path="/products" element={<ProductList />} />
-          <Route path="/product/:productsId" element={<Product />} />
-          <Route path="/newProduct" element={<NewProduct />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+      </Routes>
+
+      {admin && (
+        <>
+          <TopBar />
+
+          <div className="container">
+            <Sidebar />
+            <Routes>
+              <Route exact path="/" element={<Home />} />
+              <Route path="/users" element={<UserList />} />
+              <Route path="/user/:userId" element={<User />} />
+              <Route path="/newUser" element={<NewUser />} />
+              <Route path="/products" element={<ProductList />} />
+              <Route path="/product/:productsId" element={<Product />} />
+              <Route path="/newProduct" element={<NewProduct />} />
+            </Routes>
+          </div>
+        </>
+      )}
     </BrowserRouter>
   );
 }
