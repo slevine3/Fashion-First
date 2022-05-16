@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
 import { useState, useEffect } from "react";
 import { userRequest } from "../requestMethods";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const KEY = process.env.REACT_APP_STRIPE;
 
@@ -30,7 +30,7 @@ const Top = styled.div`
   align-items: center;
   padding: 20px;
 `;
-
+const NavLink=styled(Link)``
 const TopButton = styled.button`
   padding: 10px;
   font-weight: 600;
@@ -125,6 +125,7 @@ const ProductColor = styled.span`
   height: 20px;
   border-radius: 50%;
   background-color: ${(props) => props.color};
+  border: 1px solid black;
 `;
 
 const ProductSize = styled.span``;
@@ -180,7 +181,6 @@ const Cart = () => {
       }
     };
     stripeToken && makeRequest();
-  
   }, [stripeToken, cart.total, navigate]);
 
   return (
@@ -190,7 +190,9 @@ const Cart = () => {
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
-          <TopButton>CONTINUE SHOPPING</TopButton>
+          <NavLink to="/">
+            <TopButton>CONTINUE SHOPPING</TopButton>
+          </NavLink>
           <TopTexts>
             <TopText>Shopping Bag(2)</TopText>
             <TopText>Your Wishlist(0)</TopText>
@@ -199,8 +201,8 @@ const Cart = () => {
         </Top>
         <Bottom>
           <Info>
-            {cart.products.map((product) => (
-              <Product>
+            {cart.products.map((product, i) => (
+              <Product key={i}>
                 <ProductDetail>
                   <Image src={product.img} />
                   <Details>

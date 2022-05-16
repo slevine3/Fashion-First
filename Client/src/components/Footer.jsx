@@ -9,6 +9,7 @@ import {
 } from "@mui/icons-material";
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -48,6 +49,12 @@ const List = styled.ul`
   list-style: none;
   display: flex;
   flex-wrap: wrap;
+`;
+const NavLink = styled(Link)`
+  width: 50%;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: black;
 `;
 const ListItem = styled.li`
   width: 50%;
@@ -100,24 +107,34 @@ const Footer = () => {
       <Center>
         <Title>Useful Links</Title>
         <List>
-          <ListItem>Home</ListItem>
-          <ListItem>Cart</ListItem>
-          <ListItem>Men's Fashion</ListItem>
-          <ListItem>Women's Fashion</ListItem>
-          <ListItem>Accessories</ListItem>
+          <NavLink to="/">
+            <ListItem>Home</ListItem>
+          </NavLink>
+          <NavLink to="/cart">
+            <ListItem>Cart</ListItem>
+          </NavLink>
+          <NavLink to="/products/men">
+            <ListItem>Men's Fashion</ListItem>
+          </NavLink>
+          <NavLink to="/products/women">
+            <ListItem>Womens Fashion</ListItem>
+          </NavLink>
+          <NavLink to="/products/accessories">
+            <ListItem>Accessories</ListItem>
+          </NavLink>
           <ListItem>My Account</ListItem>
           <ListItem>Order Tracking</ListItem>
           <ListItem>Wishlist</ListItem>
           <ListItem>Wishlist</ListItem>
           <ListItem>Terms</ListItem>
-          <ListItem>Cart</ListItem>
+        
         </List>
       </Center>
       <Right>
         <Title>Contact</Title>
         <ContactItem>
-          <Room style={{ marginRight: "10px" }} /> 3492 Columbia Street, San
-          Diego, CA 92109
+          <Room style={{ marginRight: "10px" }} /> 3429 Pacific Beach Drive, San
+          Diego, California, 92109
         </ContactItem>
         <ContactItem>
           <Phone style={{ marginRight: "10px" }} />
