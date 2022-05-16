@@ -6,7 +6,7 @@ import { format } from "timeago.js";
 
 const WidgetLarge = () => {
   const [orders, setOrders] = useState([]);
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const getOrders = async () => {
@@ -14,9 +14,9 @@ const WidgetLarge = () => {
         const ordersResponse = await userRequest.get("/orders");
         setOrders(ordersResponse.data);
 
-        const usersResponse = await userRequest.get(`/users`);
+        // const usersResponse = await userRequest.get(`/users`);
 
-        setUsers(usersResponse.data);
+        // setUsers(usersResponse.data);
       } catch (error) {}
     };
     getOrders();
@@ -40,7 +40,7 @@ const WidgetLarge = () => {
             <td className="widgetLargeUser">
               <img
                 src="https://placekitten.com/200/300"
-                alt="User image"
+                alt="User Avatar"
                 className="widgetLargeImg"
               />
               <span className="widgetLargeName">

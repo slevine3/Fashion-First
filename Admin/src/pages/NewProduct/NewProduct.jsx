@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./NewProduct.css";
-
+import {  useNavigate } from "react-router-dom";
 import {
   getStorage,
   ref,
@@ -16,6 +16,7 @@ const NewProduct = () => {
   const [file, setFile] = useState(null);
   const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setInputs((prev) => {
@@ -70,6 +71,7 @@ const NewProduct = () => {
         });
       }
     );
+    // navigate("/products");
   };
 
   return (

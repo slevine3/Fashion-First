@@ -6,7 +6,7 @@ import Chart from "../../components/Chart/Chart";
 
 import PublishIcon from "@material-ui/icons/Publish";
 import { userRequest } from "../../requestMethods";
-import axios from "axios";
+
 const Product = () => {
   const location = useLocation();
   const productId = location.pathname.split("/")[2];
