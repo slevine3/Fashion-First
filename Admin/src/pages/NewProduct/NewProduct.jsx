@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./NewProduct.css";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   getStorage,
   ref,
@@ -10,11 +10,14 @@ import {
 import app from "../../firebase";
 import { addProduct } from "../../redux/apiCalls";
 import { useDispatch } from "react-redux";
+import { ProgressBar } from "react-bootstrap";
 
 const NewProduct = () => {
   const [inputs, setInputs] = useState({});
   const [file, setFile] = useState(null);
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState({});
+  const [percentage, setPercentage] = useState(0);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -24,9 +27,13 @@ const NewProduct = () => {
     });
   };
   const handleCategories = (e) => {
-    setCategories(e.target.value.split(","));
+    // setCategories(e.target.value.split(","));
+    setCategories((prev) => {
+      return { ...prev, [e.target.name]: e.target.value.split(",") };
+    });
   };
-
+  console.log(inputs);
+  console.log(categories);
   const handleClick = (e) => {
     e.preventDefault();
     const fileName = new Date().getTime() + file.name;
@@ -46,6 +53,8 @@ const NewProduct = () => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log("Upload is " + progress + "% done");
+        setPercentage(Math.round(progress));
+
         switch (snapshot.state) {
           case "paused":
             console.log("Upload is paused");
@@ -65,13 +74,13 @@ const NewProduct = () => {
           const product = {
             ...inputs,
             img: downloadURL,
-            categories: categories,
+            ...categories,
           };
           addProduct(product, dispatch);
+          navigate("/products");
         });
       }
     );
-    // navigate("/products");
   };
 
   return (
@@ -114,10 +123,29 @@ const NewProduct = () => {
           />
         </div>
         <div className="addProductItem">
+          <label>Color</label>
+          <input
+            name="color"
+            type="text"
+            placeholder="white,blue"
+            onChange={handleCategories}
+          />
+        </div>
+        <div className="addProductItem">
+          <label>Size</label>
+          <input
+            name="size"
+            type="text"
+            placeholder="S,M,L"
+            onChange={handleCategories}
+          />
+        </div>
+        <div className="addProductItem">
           <label>Categories</label>
           <input
+            name="categories"
             type="text"
-            placeholder="jeans, pants"
+            placeholder="jeans,pants"
             onChange={handleCategories}
           />
         </div>
@@ -131,11 +159,23 @@ const NewProduct = () => {
             <option value="false">No</option>
           </select>
         </div>
+        <div className="addProductButtonContainer">
+          <button onClick={handleClick} className="addProductButton">
+            Create
+          </button>
+          <ProgressBar
+            now={percentage}
+            label={`${percentage}%`}
+            style={
+              (percentage <= 0)
+                ? { display: "none" }
+                : { display: "flex", width: "800px", marginLeft: "100px" }
+            }
+          />
+        </div>
 
-        <button onClick={handleClick} className="addProductButton">
-          Create
-        </button>
       </form>
+ 
     </div>
   );
 };

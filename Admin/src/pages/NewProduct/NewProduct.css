@@ -26,6 +26,10 @@
 .addProductItem > select {
   padding: 10px;
 }
+.addProductButtonContainer {
+  display: flex;
+  align-items: center; 
+}
 
 .addProductButton {
   margin-top: 10px;
@@ -36,4 +40,5 @@
   color: white;
   font-weight: 600;
   cursor: pointer;
+
 }

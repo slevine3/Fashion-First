@@ -10,7 +10,7 @@ const Topbar = () => {
           <span className="logo">FashionFirst</span>
         </div>
         <div className="topRight">
-          <div className="topbarIconContainer">
+          {/* <div className="topbarIconContainer">
             <Badge
               className="topIconBadge"
               badgeContent={4}
@@ -39,7 +39,7 @@ const Topbar = () => {
             >
               <Settings />
             </Badge>
-          </div>
+          </div> */}
           <img
             src="https://placedog.net/500"
             alt=""
