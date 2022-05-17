@@ -4,6 +4,7 @@ import { mobile } from "../responsive";
 import { login } from "../redux/apiCalls";
 import { useDispatch } from "react-redux";
 import { publicRequest } from "../requestMethods";
+import { Navigate, useNavigate } from "react-router-dom";
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -43,6 +44,10 @@ const Input = styled.input`
     font-size: 16px;
   }
 `;
+const Error = styled.span`
+  color: red;
+  font-weight: 800;
+`;
 
 const Agreement = styled.span`
   font-size: 12px;
@@ -62,7 +67,11 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [usernameError, setUsernameError] = useState(null);
+  const [EmailError, setEmailError] = useState(null);
+  const [unknownError, setUnknownError] = useState(null);
 
+  const navigate = useNavigate();
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -72,9 +81,21 @@ const Register = () => {
         email,
         password,
       });
-      console.log(response);
+      response.status === 201 && navigate("/login");
     } catch (error) {
-      console.log(error);
+      if (Object.keys(error.response.data.keyValue)[0] === "username") {
+        setUsernameError("Sorry, the username already exists!");
+        setEmailError(null);
+        setUnknownError(null);
+      } else if (Object.keys(error.response.data.keyValue)[0] === "email") {
+        setEmailError("Sorry, the email already exists!");
+        setUsernameError(null);
+        setUnknownError(null);
+      } else {
+        setUnknownError("Something went wrong...");
+        setUsernameError(null);
+        setEmailError(null);
+      }
     }
   };
 
@@ -89,12 +110,14 @@ const Register = () => {
             type="text"
             name="username"
           />
+
           <Input
             onChange={(e) => setEmail(e.target.value)}
             placeholder="email"
             type="email"
             name="email"
           />
+
           <Input
             onChange={(e) => setPassword(e.target.value)}
             placeholder="password"
@@ -107,6 +130,9 @@ const Register = () => {
             data in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
           <Button onClick={handleClick}>CREATE</Button>
+          {usernameError && <Error>{usernameError}</Error>}
+          {EmailError && <Error>{EmailError}</Error>}
+          {unknownError && <Error>{unknownError}</Error>}
         </Form>
       </Wrapper>
     </Container>
