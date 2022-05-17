@@ -24,7 +24,7 @@ app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
 app.use("/api/cart", cartRoute);
 app.use("/api/orders", orderRoute);
-
+app.use("/api/checkout", stripeRoute);
 
 mongoose
   .connect(process.env.MONGO_URL)
