@@ -1,5 +1,9 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import { login } from "../redux/apiCalls";
+import { useDispatch } from "react-redux";
+import { publicRequest } from "../requestMethods";
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -34,7 +38,12 @@ const Input = styled.input`
   min-width: 40%;
   margin: 20px 10px 0px 0px;
   padding: 10px;
+  font-size: 16px;
+  ::placeholder {
+    font-size: 16px;
+  }
 `;
+
 const Agreement = styled.span`
   font-size: 12px;
   margin: 20px 0px;
@@ -49,22 +58,55 @@ const Button = styled.button`
 `;
 
 const Register = () => {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await publicRequest.post("/auth/register/", {
+        username,
+        email,
+        password,
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container>
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
         <Form>
-          <Input placeholder="name" />
-          <Input placeholder="last name" />
-          <Input placeholder="username" />
-          <Input placeholder="email" />
-          <Input placeholder="password" />
-          <Input placeholder="confirm password" />
+          <Input
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="username"
+            type="text"
+            name="username"
+          />
+          <Input
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="email"
+            type="email"
+            name="email"
+          />
+          <Input
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="password"
+            type="password"
+            name="password"
+          />
+          {/* <Input type="file" />  */}
           <Agreement>
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
-          <Button>CREATE</Button>
+          <Button onClick={handleClick}>CREATE</Button>
         </Form>
       </Wrapper>
     </Container>

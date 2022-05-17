@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { login } from "../redux/apiCalls";
 import { mobile } from "../responsive";
+import { Link } from "react-router-dom";
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -52,17 +53,19 @@ const Button = styled.button`
     cursor: not-allowed;
   }
 `;
-const Link = styled.a`
+
+const NavLink = styled(Link)`
   margin: 5px 0px;
   font-size: 12px;
   text-decoration: underline;
+  text-decoration-color: black;
   cursor: pointer;
 `;
 
 const Error = styled.span`
   color: red;
   font-weight: 800;
-`
+`;
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -70,12 +73,13 @@ const Login = () => {
 
   const dispatch = useDispatch();
 
-  const {isFetching, error} = useSelector((state) => state.user);
+  const { isFetching, error } = useSelector((state) => state.user);
 
   const handleClick = (e) => {
     e.preventDefault();
     login(dispatch, { username, password });
   };
+  
   return (
     <Container>
       <Wrapper>
@@ -96,8 +100,9 @@ const Login = () => {
             LOGIN
           </Button>
           {error && <Error>Something went wrong...</Error>}
-          <Link>DO YOU NOT REMEMBER THE PASSWORD?</Link>
-          <Link>CREATE A NEW ACCOUNT</Link>
+          {/* <NavLink>DO YOU NOT REMEMBER THE PASSWORD?</NavLink> */}
+
+          <NavLink to="/register">CREATE A NEW ACCOUNT</NavLink>
         </Form>
       </Wrapper>
     </Container>

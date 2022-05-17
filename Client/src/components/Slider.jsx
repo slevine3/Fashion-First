@@ -99,7 +99,7 @@ const Slider = () => {
               <Desc>
                 DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.
               </Desc>
-              <Button>SHOP NOW</Button>
+              {/* <Button>SHOP NOW</Button> */}
             </InfoContainer>
           </Slide>
         ))}

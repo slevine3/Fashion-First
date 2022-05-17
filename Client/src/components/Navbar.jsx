@@ -7,8 +7,6 @@ import { mobile } from "../responsive";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-
-
 const Container = styled.div`
   height: 60px;
   ${mobile({ height: "50px" })}
@@ -70,11 +68,13 @@ const MenuItem = styled.div`
 `;
 
 const Navbar = () => {
-  const quantity = useSelector(state => state.cart.quantity);
+  const quantity = useSelector((state) => state.cart.quantity);
  
 
-
-
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
   return (
     <Container>
       <Wrapper>
@@ -89,16 +89,14 @@ const Navbar = () => {
           <Logo>FashionFirst.</Logo>
         </Center>
         <Right>
-          <MenuItem>REGISTER</MenuItem>
-          <MenuItem>SIGN IN</MenuItem>
           <Link to="/cart">
-          <MenuItem>
-      
-            <Badge badgeContent={quantity} color="primary">
-              <ShoppingCartOutlinedIcon />
-            </Badge>
-          </MenuItem>
+            <MenuItem>
+              <Badge badgeContent={quantity} color="primary">
+                <ShoppingCartOutlinedIcon />
+              </Badge>
+            </MenuItem>
           </Link>
+          <MenuItem onClick={handleLogout}>LOGOUT</MenuItem>
         </Right>
       </Wrapper>
     </Container>

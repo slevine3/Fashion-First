@@ -17,7 +17,7 @@ export const sliderItems = [
   {
     id: 3,
     img: "https://i.ibb.co/cXFnLLV/3.png",
-    title: "LOUNGEWEAR LOVE",
+    title: "EVERYDAY ACCESSORIES",
     desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
     bg: "fbf0f4",
   },

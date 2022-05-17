@@ -117,7 +117,7 @@ const Footer = () => {
             <ListItem>Men's Fashion</ListItem>
           </NavLink>
           <NavLink to="/products/women">
-            <ListItem>Womens Fashion</ListItem>
+            <ListItem>Women's Fashion</ListItem>
           </NavLink>
           <NavLink to="/products/accessories">
             <ListItem>Accessories</ListItem>
