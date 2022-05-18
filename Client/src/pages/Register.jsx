@@ -4,7 +4,8 @@ import { mobile } from "../responsive";
 import { login } from "../redux/apiCalls";
 import { useDispatch } from "react-redux";
 import { publicRequest } from "../requestMethods";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, Link } from "react-router-dom";
+
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -60,6 +61,15 @@ const Button = styled.button`
   background-color: teal;
   color: white;
   cursor: pointer;
+  margin-bottom: 10px;
+`;
+const NavLink = styled(Link)`
+
+  margin: 5px 0px;
+  font-size: 12px;
+  text-decoration: underline;
+  text-decoration-color: black;
+  cursor: pointer;
 `;
 
 const Register = () => {
@@ -68,7 +78,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
 
   const [usernameError, setUsernameError] = useState(null);
-  const [EmailError, setEmailError] = useState(null);
+  const [emailError, setEmailError] = useState(null);
   const [unknownError, setUnknownError] = useState(null);
 
   const navigate = useNavigate();
@@ -131,9 +141,11 @@ const Register = () => {
           </Agreement>
           <Button onClick={handleClick}>CREATE</Button>
           {usernameError && <Error>{usernameError}</Error>}
-          {EmailError && <Error>{EmailError}</Error>}
+          {emailError && <Error>{emailError}</Error>}
           {unknownError && <Error>{unknownError}</Error>}
         </Form>
+
+        <NavLink to="/login">LOGIN PAGE</NavLink>
       </Wrapper>
     </Container>
   );

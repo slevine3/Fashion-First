@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { publicRequest } from "../requestMethods";
 import styled from "styled-components";
 import { login } from "../redux/apiCalls";
 import { mobile } from "../responsive";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AxiosError } from "axios";
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -71,15 +73,50 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { isFetching, error } = useSelector((state) => state.user);
 
   const handleClick = (e) => {
     e.preventDefault();
-    login(dispatch, { username, password });
+    try {
+      login(dispatch, { username, password });
+      setErrorMessage(error);
+      console.log(error);
+    } catch (error) {}
   };
-  
+
+  // const handleClick = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await publicRequest.post("/auth/login/", {
+  //       username,
+  //       password,
+  //     });
+  //     console.log("response: ", response);
+  //     response.status === 200 && navigate("/");
+  //   } catch (error) {
+  //     console.log("error: ", error);
+
+  //     if (error.response.data === "badUsername") {
+  //       setUsernameError("The username does not exist");
+  //       setPasswordError(null);
+  //       setUnknownError(null);
+  //     } else if (error.response.data === "badPassword") {
+  //       setPasswordError("Incorrect password");
+  //       setUsernameError(null);
+  //       setUnknownError(null);
+  //     } else {
+  //       setUnknownError("Something went wrong...");
+  //       setUsernameError(null);
+  //       setPasswordError(null);
+  //     }
+  //   }
+  // };
+
   return (
     <Container>
       <Wrapper>
@@ -96,11 +133,14 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <Button onClick={handleClick} disabled={isFetching}>
+          <Button
+            onClick={handleClick}
+            // disabled={isFetching}
+          >
             LOGIN
           </Button>
-          {error && <Error>Something went wrong...</Error>}
-          {/* <NavLink>DO YOU NOT REMEMBER THE PASSWORD?</NavLink> */}
+
+          {error && <Error>{error}</Error>}
 
           <NavLink to="/register">CREATE A NEW ACCOUNT</NavLink>
         </Form>

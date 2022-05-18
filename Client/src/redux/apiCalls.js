@@ -7,6 +7,6 @@ try {
     const response = await publicRequest.post('/auth/login', user)
     dispatch(loginSuccess(response.data))
 } catch (error) {
-    dispatch(loginFailure())
+    dispatch(loginFailure(error))
 }
 }
