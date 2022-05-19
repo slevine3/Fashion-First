@@ -24,32 +24,20 @@ const Left = styled.div`
   display: flex;
   align-items: center;
 `;
-// const Language = styled.span`
-//   font-size: 14px;
-//   cursor: pointer;
-//   ${mobile({ display: "none" })}
-// `;
-// const SearchContainer = styled.div`
-//   border: 0.5px solid lightgray;
-//   display: flex;
-//   align-items: center;
-//   margin-left: 25px;
-//   padding: 5px;
-//   ${mobile({ marginLeft: "10px" })}
-// `;
-
-const Input = styled.input`
-  border: none;
-  ${mobile({ width: "50px" })}
-`;
 
 const Center = styled.div`
   flex: 1;
   text-align: center;
 `;
+const NavLink = styled(Link)`
+  color: black;
+  text-decoration: none;
+`;
 const Logo = styled.h1`
   font-weight: bolder;
   ${mobile({ fontSize: "24px" })}
+  color: black;
+  text-decoration: none;
 `;
 
 const Right = styled.div`
@@ -69,7 +57,6 @@ const MenuItem = styled.div`
 
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
- 
 
   const handleLogout = () => {
     localStorage.clear();
@@ -78,15 +65,11 @@ const Navbar = () => {
   return (
     <Container>
       <Wrapper>
-        <Left>
-          {/* <Language>EN</Language> */}
-          {/* <SearchContainer>
-            <Input placeholder="Search" />
-            <Search style={{ color: "gray", fontSize: "16px" }} />
-          </SearchContainer> */}
-        </Left>
+        <Left></Left>
         <Center>
-          <Logo>FashionFirst.</Logo>
+          <NavLink to="/">
+            <Logo>FashionFirst.</Logo>
+          </NavLink>
         </Center>
         <Right>
           <Link to="/cart">

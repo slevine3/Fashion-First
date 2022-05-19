@@ -122,11 +122,7 @@ const Footer = () => {
           <NavLink to="/products/accessories">
             <ListItem>Accessories</ListItem>
           </NavLink>
-          <ListItem>My Account</ListItem>
-          <ListItem>Order Tracking</ListItem>
-          <ListItem>Wishlist</ListItem>
-          <ListItem>Wishlist</ListItem>
-          <ListItem>Terms</ListItem>
+      
         
         </List>
       </Center>

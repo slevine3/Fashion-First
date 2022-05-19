@@ -26,11 +26,11 @@ const Title = styled.h1`
 
 const Top = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex start;
   align-items: center;
   padding: 20px;
 `;
-const NavLink=styled(Link)``
+const NavLink = styled(Link)``;
 const TopButton = styled.button`
   padding: 10px;
   font-weight: 600;
@@ -93,7 +93,12 @@ const Button = styled.button`
   font-weight: 600;
   letter-spacing: 2px;
 `;
-
+const TestModeNote = styled.div`
+  margin-top: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+`;
 const Product = styled.div`
   display: flex;
   justify-content: space-between;
@@ -193,11 +198,6 @@ const Cart = () => {
           <NavLink to="/">
             <TopButton>CONTINUE SHOPPING</TopButton>
           </NavLink>
-          <TopTexts>
-            <TopText>Shopping Bag(2)</TopText>
-            <TopText>Your Wishlist(0)</TopText>
-          </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
         </Top>
         <Bottom>
           <Info>
@@ -262,6 +262,12 @@ const Cart = () => {
               stripeKey={KEY}
             >
               <Button>Pay Now</Button>
+              <TestModeNote>
+                Please use Stripe Test Mode payment method for checkout: 
+                Card Number: 4242 4242 4242 4242
+                MM/YY: 08/24
+                CVC: 123
+              </TestModeNote>
             </StripeCheckout>
           </Summary>
         </Bottom>

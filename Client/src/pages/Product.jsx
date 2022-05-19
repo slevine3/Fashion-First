@@ -7,7 +7,7 @@ import Newsletter from "../components/Newsletter";
 import { mobile } from "../responsive";
 import { useState, useEffect } from "react";
 import { publicRequest } from "../requestMethods";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 
@@ -116,7 +116,24 @@ const Button = styled.button`
     background-color: #f8f4f4;
   }
 `;
+const CheckoutContainer = styled.div`
+  flex: 1;
+  margin-left: 125px;
+  margin-top: 100px;
+`;
+const CheckoutButton = styled.button`
+  width: 150px;
+  height: 50px;
+  padding: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  border: ${(props) => props.type === "filled" && "none"};
+  background-color: ${(props) =>
+    props.type === "filled" ? "black" : "transparent"};
 
+  color: ${(props) => props.type === "filled" && "white"};
+`;
+const NavLink = styled(Link)``;
 const Product = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
@@ -154,7 +171,7 @@ const Product = () => {
       })
     );
   };
- 
+
   return (
     <Container>
       <Navbar />
@@ -196,6 +213,12 @@ const Product = () => {
             </AmountContainer>
             <Button onClick={handleClick}>Add to Cart</Button>
           </AddContainer>
+
+          <CheckoutContainer>
+            <NavLink to="/cart">
+              <CheckoutButton type="filled">CHECKOUT NOW</CheckoutButton>
+            </NavLink>
+          </CheckoutContainer>
         </InfoContainer>
       </Wrapper>
 
