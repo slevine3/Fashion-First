@@ -12,6 +12,7 @@ const Container = styled.div`
 `;
 
 const Products = ({ cat, filters, sort }) => {
+
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
@@ -24,6 +25,7 @@ const Products = ({ cat, filters, sort }) => {
             : "http://localhost:5000/api/products"
         );
         setProducts(response.data);
+        console.log(response)
       } catch (error) {}
     };
     getProducts();

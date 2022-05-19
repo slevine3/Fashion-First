@@ -48,6 +48,9 @@ const Input = styled.input`
 const Error = styled.span`
   color: red;
   font-weight: 800;
+  font-size: 18px;
+  margin-left: 80px;
+  margin-top: 10px;
 `;
 
 const Agreement = styled.span`
@@ -64,7 +67,6 @@ const Button = styled.button`
   margin-bottom: 10px;
 `;
 const NavLink = styled(Link)`
-
   margin: 5px 0px;
   font-size: 12px;
   text-decoration: underline;
@@ -84,6 +86,9 @@ const Register = () => {
   const navigate = useNavigate();
 
   const handleClick = async (e) => {
+    if (username === "" || email === "" || password === "")
+      setUnknownError("All Fields must me entered");
+
     e.preventDefault();
     try {
       const response = await publicRequest.post("/auth/register/", {
@@ -119,6 +124,7 @@ const Register = () => {
             placeholder="username"
             type="text"
             name="username"
+            required
           />
 
           <Input
@@ -126,6 +132,7 @@ const Register = () => {
             placeholder="email"
             type="email"
             name="email"
+            required
           />
 
           <Input
@@ -133,8 +140,9 @@ const Register = () => {
             placeholder="password"
             type="password"
             name="password"
+            required
           />
-          {/* <Input type="file" />  */}
+
           <Agreement>
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>

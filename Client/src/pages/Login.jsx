@@ -41,6 +41,12 @@ const Input = styled.input`
   margin: 10px 0px;
   padding: 10px;
 `;
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+
+  margin: 10px 0px;
+`;
 const Button = styled.button`
   width: 40%;
   border: none;
@@ -67,15 +73,13 @@ const NavLink = styled(Link)`
 const Error = styled.span`
   color: red;
   font-weight: 800;
+  margin-bottom: 10px;
 `;
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const [errorMessage, setErrorMessage] = useState(null);
-
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { isFetching, error } = useSelector((state) => state.user);
@@ -84,38 +88,14 @@ const Login = () => {
     e.preventDefault();
     try {
       login(dispatch, { username, password });
-      setErrorMessage(error);
-      console.log(error);
     } catch (error) {}
   };
-
-  // const handleClick = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const response = await publicRequest.post("/auth/login/", {
-  //       username,
-  //       password,
-  //     });
-  //     console.log("response: ", response);
-  //     response.status === 200 && navigate("/");
-  //   } catch (error) {
-  //     console.log("error: ", error);
-
-  //     if (error.response.data === "badUsername") {
-  //       setUsernameError("The username does not exist");
-  //       setPasswordError(null);
-  //       setUnknownError(null);
-  //     } else if (error.response.data === "badPassword") {
-  //       setPasswordError("Incorrect password");
-  //       setUsernameError(null);
-  //       setUnknownError(null);
-  //     } else {
-  //       setUnknownError("Something went wrong...");
-  //       setUsernameError(null);
-  //       setPasswordError(null);
-  //     }
-  //   }
-  // };
+  const handleDemoLogin = (e) => {
+    e.preventDefault();
+    try {
+      login(dispatch, { username: "admin", password: "12345" });
+    } catch (error) {}
+  };
 
   return (
     <Container>
@@ -132,13 +112,14 @@ const Login = () => {
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
-
-          <Button
-            onClick={handleClick}
-            // disabled={isFetching}
-          >
-            LOGIN
-          </Button>
+          <ButtonContainer>
+            <Button onClick={handleClick} disabled={isFetching}>
+              LOGIN
+            </Button>
+            <Button onClick={handleDemoLogin} disabled={isFetching}>
+              DEMO LOGIN
+            </Button>
+          </ButtonContainer>
 
           {error && <Error>{error}</Error>}
 
