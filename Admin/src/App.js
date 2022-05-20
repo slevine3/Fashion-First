@@ -29,7 +29,9 @@ function App() {
           <div className="container">
             <Sidebar />
             <Routes>
+              
               <Route exact path="/" element={<Home />} />
+          
               <Route path="/users" element={<UserList />} />
               <Route path="/user/:userId" element={<User />} />
               <Route path="/newUser" element={<NewUser />} />

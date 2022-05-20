@@ -17,7 +17,7 @@ const ProductList = () => {
   }, [dispatch]);
 
   const handleDelete = (id) => {
-    console.log(id)
+ 
   deleteProduct(id, dispatch)
   };
   const columns = [

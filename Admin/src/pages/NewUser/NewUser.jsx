@@ -1,54 +1,97 @@
-import React from "react";
+import React, { useState } from "react";
 import "./NewUser.css";
-
+import { useNavigate } from "react-router-dom";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import app from "../../firebase";
+import { addUser } from "../../redux/apiCalls";
+import { useDispatch } from "react-redux";
+import { ProgressBar } from "react-bootstrap";
 const NewUser = () => {
+  const [inputs, setInputs] = useState({});
+  const [percentage, setPercentage] = useState(0);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setInputs((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    const user = { ...inputs };
+    console.log("user: ", user);
+
+    addUser(user, dispatch);
+    // navigate("/users");
+  };
+
   return (
     <div className="newUser">
       <h1 className="newUserTitle">New User</h1>
       <form className="newUserForm">
         <div className="newUserItem">
           <label>Username</label>
-          <input type="text" placeholder="John" />
-        </div>
-        <div className="newUserItem">
-          <label>Full Name</label>
-          <input type="text" placeholder="John Smith" />
+          <input
+            name="username"
+            type="text"
+            placeholder="John"
+            onChange={handleChange}
+          />
         </div>
         <div className="newUserItem">
           <label>Email</label>
-          <input type="text" placeholder="john@gmail.com" />
+          <input
+            name="email"
+            type="email"
+            placeholder="john@gmail.com"
+            onChange={handleChange}
+          />
         </div>
         <div className="newUserItem">
           <label>Password</label>
-          <input type="text" placeholder="password" />
+          <input
+            name="password"
+            type="password"
+            placeholder="password"
+            onChange={handleChange}
+          />
         </div>
+
         <div className="newUserItem">
-          <label>Phone</label>
-          <input type="text" placeholder="+1 123 456 7890" />
-        </div>
-        <div className="newUserItem">
-          <label>Address</label>
-          <input type="text" placeholder="New York | USA" />
-        </div>
-        <div className="newUserItem">
-          <label>Gender</label>
-          <div className="newUserGender">
-            <input type="radio" name="gender" id="male" value="male" />
-            <label for="male">Male</label>
-            <input type="radio" name="gender" id="female" value="female" />
-            <label for="female">Female</label>
-            <input type="radio" name="gender" id="other" value="other" />
-            <label for="other">Other</label>
-          </div>
-        </div>
-        <div className="newUserItem">
-          <label>Active</label>
-          <select className="newUserSelect" name="active" id="active">
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
+          <label>isAdmin</label>
+          <select
+            className="newUserSelect"
+            name="isAdmin"
+            id="isAdmin"
+            onChange={handleChange}
+          >
+            <option selected disabled>Choose</option>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
           </select>
         </div>
-        <button className="newUserButton">Create</button>
+        <div className="newUserButtonContainer">
+          <button onClick={handleClick} className="newUserButton">
+            Create
+          </button>
+          <ProgressBar
+            now={percentage}
+            label={`${percentage}%`}
+            style={
+              percentage <= 0
+                ? { display: "none" }
+                : { display: "flex", width: "800px", marginLeft: "100px" }
+            }
+          />
+        </div>
       </form>
     </div>
   );

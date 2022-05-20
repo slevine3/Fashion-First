@@ -48,6 +48,11 @@
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
 }
+.newUserButtonContainer {
+  display: flex;
+  align-items: center; 
+}
+
 .newUserButton {
   width: 200px;
   border: none;

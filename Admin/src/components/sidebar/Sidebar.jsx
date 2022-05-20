@@ -65,7 +65,7 @@ const Sidebar = () => {
             </Link>
           </ul>
         </div>
-        <div className="sidebarMenu">
+        {/* <div className="sidebarMenu">
           <h3 className="sidebarTitle">Quick Menu</h3>
           <ul className="sidebarList">
             <li className="sidebarListItem">
@@ -82,45 +82,7 @@ const Sidebar = () => {
               Transactions
             </li>
           </ul>
-        </div>
-        <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Notifications </h3>
-          <ul className="sidebarList">
-            <li className="sidebarListItem">
-              <BarChart className="sidebarIcon" />
-              Reports
-            </li>
-            <li className="sidebarListItem">
-              <MailOutline className="sidebarIcon" />
-              Mail
-            </li>
-            <li className="sidebarListItem">
-              <DynamicFeed className="sidebarIcon" />
-              Feedback
-            </li>
-          </ul>
-        </div>
-        <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Stuff </h3>
-          <ul className="sidebarList">
-            <li className="sidebarListItem">
-              <ChatBubbleOutline className="sidebarIcon" />
-              Messages
-            </li>
-            <li className="sidebarListItem">
-              <WorkOutline className="sidebarIcon" />
-              Manage
-            </li>
-            <li className="sidebarListItem">
-              <Timeline className="sidebarIcon" />
-              Analytics
-            </li>
-            <li className="sidebarListItem">
-              <Report className="sidebarIcon" />
-              Reports
-            </li>
-          </ul>
-        </div>
+        </div> */}
       </div>
     </div>
   );

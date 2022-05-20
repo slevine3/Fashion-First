@@ -1,10 +1,10 @@
-import Chart from '../../components/Chart/Chart'
+import Chart from "../../components/Chart/Chart";
 import FeaturedInfo from "../FeaturedInfo/FeaturedInfo";
 import "./Home.css";
 import WidgetSmall from "../../components/WidgetSmall/WidgetSmall";
 import WidgetLarge from "../../components/WidgetLarge/WidgetLarge";
 import React, { useEffect, useMemo, useState } from "react";
-import { userRequest } from '../../requestMethods';
+import { userRequest } from "../../requestMethods";
 
 const Home = () => {
   const [userStats, setUserStats] = useState([]);
@@ -31,7 +31,12 @@ const Home = () => {
     const getStats = async () => {
       try {
         const res = await userRequest.get("/users/stats");
-        res.data.map((item) =>
+
+        const list = res.data.sort((a, b) => {
+          return a._id - b._id;
+        });
+
+        list.map((item) =>
           setUserStats((prev) => [
             ...prev,
             { name: MONTHS[item._id - 1], "Active User": item.total },
@@ -41,6 +46,8 @@ const Home = () => {
     };
     getStats();
   }, [MONTHS]);
+
+
 
   return (
     <div className="home">

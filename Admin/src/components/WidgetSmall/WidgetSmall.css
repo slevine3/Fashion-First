@@ -8,21 +8,19 @@
 .widgetSmallTitle {
   font-weight: bold;
   font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.widgetSmallImg {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
-  object-fit: cover;
-}
+
 .widgetSmallList {
   margin: 0;
   padding: 0;
   list-style: none;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 .widgetSmallListItem {
   display: flex;
@@ -57,5 +55,5 @@
 }
 .widgetSmallIcon {
   font-size: 16px !important ;
-  margin-right: 5px ;
+  margin-right: 5px;
 }

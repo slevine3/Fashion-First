@@ -1,5 +1,5 @@
 .featured {
-  width: 100%;
+  width: 25%;
   display: flex;
   justify-content: space-evenly;
 }

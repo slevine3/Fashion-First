@@ -27,13 +27,11 @@ const NewProduct = () => {
     });
   };
   const handleCategories = (e) => {
-    // setCategories(e.target.value.split(","));
     setCategories((prev) => {
       return { ...prev, [e.target.name]: e.target.value.split(",") };
     });
   };
-  console.log(inputs);
-  console.log(categories);
+ 
   const handleClick = (e) => {
     e.preventDefault();
     const fileName = new Date().getTime() + file.name;
@@ -76,6 +74,7 @@ const NewProduct = () => {
             img: downloadURL,
             ...categories,
           };
+          console.log("product: ", product)
           addProduct(product, dispatch);
           navigate("/products");
         });

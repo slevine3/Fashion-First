@@ -8,9 +8,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-
 export const Chart = ({ title, data, dataKey, grid }) => {
-  
 
   return (
     <div className="chart">
