@@ -33,11 +33,12 @@ const Product = () => {
     []
   );
 
-
   useEffect(() => {
     const getStats = async () => {
       try {
-        const response = await userRequest.get("orders/income?pid=" + productId);
+        const response = await userRequest.get(
+          "/orders/income/?pid=" + productId
+        );
         const list = response.data.sort((a, b) => {
           return a._id - b._id;
         });
@@ -53,6 +54,8 @@ const Product = () => {
     };
     getStats();
   }, [productId, MONTHS]);
+  console.log("productId: ", productId);
+  console.log("productStats: ", productStats);
 
   return (
     <div className="product">
@@ -83,10 +86,14 @@ const Product = () => {
           </div>
           <div className="productInfoBottom">
             <div className="productInfoItem">
-              <span className="productInfoKey">id:</span>
+              <span className="productInfoKey">ID:</span>
               <span className="productInfoValue">{product._id}</span>
             </div>
-           
+
+            <div className="productInfoItem">
+              <span className="productInfoKey">Product Description:</span>
+              <span className="productInfoValue">{`${product.desc}`}</span>
+            </div>
             <div className="productInfoItem">
               <span className="productInfoKey">In Stock:</span>
               <span className="productInfoValue">{`${product.inStock}`}</span>
@@ -94,6 +101,7 @@ const Product = () => {
           </div>
         </div>
       </div>
+
       <div className="productBottom">
         <form className="productForm">
           <div className="productFormLeft">

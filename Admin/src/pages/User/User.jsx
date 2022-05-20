@@ -10,15 +10,17 @@ import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { format } from "timeago.js";
-import CreateIcon from '@material-ui/icons/Create';
-import FingerprintIcon from '@material-ui/icons/Fingerprint';
+import CreateIcon from "@material-ui/icons/Create";
+import FingerprintIcon from "@material-ui/icons/Fingerprint";
 const User = () => {
   const location = useLocation();
   const userId = location.pathname.split("/")[2];
   const user = useSelector((state) =>
     state.user.users.find((user) => user._id === userId)
   );
-  console.log(user);
+const handleClick = (e) => {
+e.preventDefault()
+}
   return (
     <div className="user">
       <div className="userTitleContainer">
@@ -68,7 +70,7 @@ const User = () => {
                 <label>Username</label>
                 <input
                   type="text"
-                  placeholder="annabeck99"
+                  placeholder={`${user.username}`}
                   className="userUpdateInput"
                 />
               </div>
@@ -77,16 +79,7 @@ const User = () => {
                 <label>Email</label>
                 <input
                   type="email"
-                  placeholder="anna@gmail.com"
-                  className="userUpdateInput"
-                />
-              </div>
-
-              <div className="userUpdateItem">
-                <label>Password</label>
-                <input
-                  type="password"
-                  placeholder="12345"
+                  placeholder={`${user.email}`}
                   className="userUpdateInput"
                 />
               </div>
@@ -103,7 +96,9 @@ const User = () => {
               </div>
             </div>
             <div className="userUpdateRight">
-              <button className="userUpdateButton">Update</button>
+              <button onClick={handleClick} className="userUpdateButton">
+                Update
+              </button>
             </div>
           </form>
         </div>

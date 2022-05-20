@@ -20,7 +20,8 @@ const FeaturedInfo = () => {
     };
     getIncome();
   }, []);
-
+  console.log(income);
+  console.log("percentage: ", percentage);
   return (
     <div className="featured">
       <div className="featuredItem">

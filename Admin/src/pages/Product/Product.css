@@ -61,12 +61,15 @@
 }
 
 .productInfoItem {
-  width: 150px;
+  width: 500px;
   display: flex;
   justify-content: space-between;
+
 }
 .productInfoValue {
   font-weight: 300;
+
+  
 }
 
 .productBottom {
