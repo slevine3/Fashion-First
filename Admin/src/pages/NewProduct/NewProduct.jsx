@@ -74,7 +74,7 @@ const NewProduct = () => {
             img: downloadURL,
             ...categories,
           };
-          console.log("product: ", product)
+        
           addProduct(product, dispatch);
           navigate("/products");
         });

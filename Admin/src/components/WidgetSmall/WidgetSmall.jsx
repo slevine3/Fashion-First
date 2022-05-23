@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./WidgetSmall.css";
 
-import { userRequest } from "../../requestMethods";
+import { publicRequest, userRequest } from "../../requestMethods";
 const WidgetSmall = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const response = await userRequest.get("users/?new=true");
+        const response = await publicRequest.get("users/?new=true");
         setUsers(response.data);
       } catch (error) {}
     };

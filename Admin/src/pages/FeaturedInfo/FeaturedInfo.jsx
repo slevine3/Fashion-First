@@ -12,7 +12,9 @@ const FeaturedInfo = () => {
     const getIncome = async () => {
       try {
         const response = await userRequest.get("/orders/income");
-        setIncome(response.data);
+        const sortedIncome = response.data.sort((a, b) => a._id - b._id);
+
+        setIncome(sortedIncome);
         setPercentage(
           (response.data[1].total * 100) / response.data[0].total - 100
         );
@@ -20,8 +22,7 @@ const FeaturedInfo = () => {
     };
     getIncome();
   }, []);
-  console.log(income);
-  console.log("percentage: ", percentage);
+
   return (
     <div className="featured">
       <div className="featuredItem">

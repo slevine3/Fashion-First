@@ -1,20 +1,28 @@
 import React, { useMemo, useState, useEffect } from "react";
 import "./Product.css";
-import { useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Chart from "../../components/Chart/Chart";
 
 import PublishIcon from "@material-ui/icons/Publish";
 import { userRequest } from "../../requestMethods";
+import { updateProduct } from "../../redux/apiCalls";
 
 const Product = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const productId = location.pathname.split("/")[2];
+
+  const [inputs, setInputs] = useState([]);
   const [productStats, setProductStats] = useState([]);
+  const [updateStatus, setUpdateStatus] = useState([]);
 
   const product = useSelector((state) =>
     state.product.products.find((product) => product._id === productId)
   );
+
   const MONTHS = useMemo(
     () => [
       "Jan",
@@ -54,8 +62,18 @@ const Product = () => {
     };
     getStats();
   }, [productId, MONTHS]);
-  console.log("productId: ", productId);
-  console.log("productStats: ", productStats);
+
+  const handleChange = (e) => {
+    setInputs((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    updateProduct(productId, inputs, dispatch);
+    setUpdateStatus("Successfully Updated");
+  };
 
   return (
     <div className="product">
@@ -103,33 +121,46 @@ const Product = () => {
       </div>
 
       <div className="productBottom">
+        <span className="productUpdateTitle">Edit</span>
         <form className="productForm">
           <div className="productFormLeft">
             <label>Product Name</label>
-            <input type="text" placeholder={product.title} />
+            <input
+              onChange={handleChange}
+              name="title"
+              type="text"
+              placeholder={product.title}
+            />
             <label>Product Description</label>
-            <input type="text" placeholder={product.desc} />
+            <input
+              onChange={handleChange}
+              name="desc"
+              type="text"
+              placeholder={product.desc}
+            />
             <label>Price</label>
-            <input type="text" placeholder={`$${product.price}`} />
+            <input
+              onChange={handleChange}
+              name="price"
+              type="text"
+              placeholder={`$${product.price}`}
+            />
             <label>In Stock</label>
-            <select name="inStock" id="inStock">
+            <select onChange={handleChange} name="inStock" id="inStock">
+              <option selected default>
+                Choose
+              </option>
               <option value="true">Yes</option>
               <option value="false">No</option>
             </select>
           </div>
-          <div className="productFormRight">
-            <div className="productUpload">
-              <img
-                src={product.img}
-                alt="productImage"
-                className="productUploadImg"
-              />
-              <label htmlFor="file">
-                <PublishIcon />
-              </label>
-              <input type="file" id="file" style={{ display: "none" }} />
-            </div>
-            <button className="productButton">Update</button>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <button onClick={handleClick} className="productButton">
+              Update
+            </button>
+            <h4 style={{ color: "green", marginTop: "20px", fontSize: '20px' }}>
+              {updateStatus}
+            </h4>
           </div>
         </form>
       </div>

@@ -28,9 +28,9 @@ const userSlice = createSlice({
       state.isFetching = false;
       state.currentUser = action.payload;
     },
-    loginFailure: (state) => {
+    loginFailure: (state, action) => {
       state.isFetching = false;
-      state.error = true;
+      state.error = action.payload.response.data
     },
 
     //DELETE USER
@@ -40,8 +40,8 @@ const userSlice = createSlice({
     },
     deleteUserSuccess: (state, action) => {
       state.isFetching = false;
-      state.products.splice(
-        state.products.findIndex((item) => item._id === action.payload),
+      state.users.splice(
+        state.users.findIndex((item) => item._id === action.payload),
         1
       );
     },

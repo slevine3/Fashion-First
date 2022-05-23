@@ -14,7 +14,7 @@ import { ProgressBar } from "react-bootstrap";
 const NewUser = () => {
   const [inputs, setInputs] = useState({});
   const [percentage, setPercentage] = useState(0);
-
+  const [userStatus, setUserStatus] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -30,7 +30,7 @@ const NewUser = () => {
     console.log("user: ", user);
 
     addUser(user, dispatch);
-    // navigate("/users");
+    setUserStatus("User Created!");
   };
 
   return (
@@ -73,24 +73,24 @@ const NewUser = () => {
             id="isAdmin"
             onChange={handleChange}
           >
-            <option selected disabled>Choose</option>
+            <option selected disabled>
+              Choose
+            </option>
             <option value="true">Yes</option>
             <option value="false">No</option>
           </select>
         </div>
-        <div className="newUserButtonContainer">
+
+        <div className="newUserButtonContainer" style={{ display: "flex", flexDirection: "column" }}>
+  
+           
           <button onClick={handleClick} className="newUserButton">
             Create
           </button>
-          <ProgressBar
-            now={percentage}
-            label={`${percentage}%`}
-            style={
-              percentage <= 0
-                ? { display: "none" }
-                : { display: "flex", width: "800px", marginLeft: "100px" }
-            }
-          />
+         
+          <h4 style={{ color: "green", marginTop: "20px", fontSize: "20px" }}>
+            {userStatus}
+          </h4>
         </div>
       </form>
     </div>

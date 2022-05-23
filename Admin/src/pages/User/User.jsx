@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./User.css";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import CalendarToday from "@material-ui/icons/CalendarToday";
@@ -7,20 +7,37 @@ import MailOutline from "@material-ui/icons/MailOutline";
 import LocationSearching from "@material-ui/icons/LocationSearching";
 import Publish from "@material-ui/icons/Publish";
 import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
-import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { format } from "timeago.js";
 import CreateIcon from "@material-ui/icons/Create";
 import FingerprintIcon from "@material-ui/icons/Fingerprint";
+import { Dispatch } from "react";
+import { updateUser } from "../../redux/apiCalls";
 const User = () => {
+  const [inputs, setInputs] = useState([]);
+
   const location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [updateStatus, setUpdateStatus] = useState([]);
   const userId = location.pathname.split("/")[2];
   const user = useSelector((state) =>
     state.user.users.find((user) => user._id === userId)
   );
-const handleClick = (e) => {
-e.preventDefault()
-}
+
+  const handleChange = (e) => {
+    setInputs((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    updateUser(userId, inputs, dispatch);
+    setUpdateStatus("Successfully Updated");
+  };
+
   return (
     <div className="user">
       <div className="userTitleContainer">
@@ -70,23 +87,32 @@ e.preventDefault()
                 <label>Username</label>
                 <input
                   type="text"
+                  name="username"
                   placeholder={`${user.username}`}
                   className="userUpdateInput"
+                  onChange={handleChange}
                 />
               </div>
 
               <div className="userUpdateItem">
                 <label>Email</label>
                 <input
+                  name="email"
                   type="email"
                   placeholder={`${user.email}`}
                   className="userUpdateInput"
+                  onChange={handleChange}
                 />
               </div>
 
               <div className="userUpdateItem">
                 <label>isAdmin</label>
-                <select className="newUserSelect" name="isAdmin" id="isAdmin">
+                <select
+                  className="newUserSelect"
+                  name="isAdmin"
+                  id="isAdmin"
+                  onChange={handleChange}
+                >
                   <option selected disabled>
                     Choose
                   </option>
@@ -95,10 +121,16 @@ e.preventDefault()
                 </select>
               </div>
             </div>
-            <div className="userUpdateRight">
+          
+            <div style={{ display: "flex", flexDirection: "column" }}>
               <button onClick={handleClick} className="userUpdateButton">
                 Update
               </button>
+              <h4
+                style={{ color: "green", marginTop: "20px", fontSize: "20px" }}
+              >
+                {updateStatus}
+              </h4>
             </div>
           </form>
         </div>

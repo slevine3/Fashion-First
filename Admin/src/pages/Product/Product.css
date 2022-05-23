@@ -64,12 +64,9 @@
   width: 500px;
   display: flex;
   justify-content: space-between;
-
 }
 .productInfoValue {
   font-weight: 300;
-
-  
 }
 
 .productBottom {
@@ -78,7 +75,12 @@
   -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
 }
+.productUpdateTitle {
+  font-size: 24px;
+  font-weight: 600;
+}
 .productForm {
+  margin-top: 10px;
   display: flex;
   justify-content: space-between;
 }
@@ -135,4 +137,6 @@
   background-color: darkblue;
   font-weight: 600;
   cursor: pointer;
+  height: 50px;
+  width: 180px;
 }

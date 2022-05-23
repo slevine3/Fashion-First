@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { publicRequest, userRequest } from "../requestMethods";
 
 import {
@@ -35,12 +36,16 @@ import {
 //LOGIN
 
 export const login = async (dispatch, user) => {
+
   dispatch(loginStart());
   try {
     const response = await publicRequest.post("/auth/login", user);
+    console.log("response: ", response);
     dispatch(loginSuccess(response.data));
+ 
   } catch (error) {
-    dispatch(loginFailure());
+    console.log(error);
+    dispatch(loginFailure(error));
   }
 };
 
@@ -67,11 +72,13 @@ export const deleteProduct = async (id, dispatch) => {
   }
 };
 
-//UPDATE PRODUCTS
+//UPDATE PRODUCT
 export const updateProduct = async (id, product, dispatch) => {
   dispatch(updateProductStart());
   try {
-    dispatch(updateProductSuccess({ id: id, product: product }));
+    const response = await userRequest.put("/products/" + id, product);
+    console.log(response);
+    dispatch(updateProductSuccess({ id, product }));
   } catch (error) {
     dispatch(updateProductFailure());
   }
@@ -79,11 +86,13 @@ export const updateProduct = async (id, product, dispatch) => {
 
 //ADD PRODUCTS
 export const addProduct = async (product, dispatch) => {
+
   dispatch(addProductStart());
   try {
     const response = await userRequest.post(`/products/`, product);
 
     dispatch(addProductSuccess(response.data));
+
   } catch (error) {
     dispatch(addProductFailure());
   }
@@ -108,20 +117,32 @@ export const deleteUser = async (id, dispatch) => {
 
     dispatch(deleteUserSuccess(id));
   } catch (error) {
-    dispatch(deleteUserFailure());
+    dispatch(deleteUserFailure(id));
   }
 };
 
-//ADD PRODUCTS
+//ADD USER
 export const addUser = async (user, dispatch) => {
+  console.log(user);
   dispatch(addUserStart());
   try {
-    console.log("dispatch run");
-    const response = await userRequest.post(`/users/`, user );
-    console.log("response: ", response);
+    const response = await userRequest.post(`/users/`, user);
+
     dispatch(addUserSuccess(response.data));
   } catch (error) {
     dispatch(addUserFailure());
     console.log("error: ", error);
+  }
+};
+
+//UPDATE USER
+export const updateUser = async (id, user, dispatch) => {
+  dispatch(updateUserStart());
+  try {
+    const response = await userRequest.put("/users/" + id, user);
+    console.log(response);
+    dispatch(updateUserSuccess({ id, user }));
+  } catch (error) {
+    dispatch(updateUserFailure());
   }
 };

@@ -11,15 +11,15 @@ import { deleteUser } from "../../redux/apiCalls";
 const UserList = () => {
   const dispatch = useDispatch();
 
-  const users = useSelector((state) => state.user.users);
-
   useEffect(() => {
     getUsers(dispatch);
   }, [dispatch]);
 
+  const users = (useSelector((state) => state?.user?.users));
+
   const handleDelete = (id) => {
     deleteUser(id, dispatch);
-    window.location.reload();
+
   };
 
   const columns = [
@@ -29,12 +29,7 @@ const UserList = () => {
       headerName: "User",
       width: 200,
       renderCell: (params) => {
-        return (
-          <div className="userListUser">
-            {/* <img className="userListImg" src={params.row.avatar} alt="avatar" /> */}
-            {params.row.username}
-          </div>
-        );
+        return <div className="userListUser">{params.row.username}</div>;
       },
     },
     {
@@ -71,18 +66,21 @@ const UserList = () => {
       },
     },
   ];
-
+  console.log(users);
   return (
     <div className="userList">
+    {users && (
       <DataGrid
         rows={users}
         columns={columns}
         getRowId={(row) => row._id}
         pageSize={10}
+        rowsPerPageOptions={[10]}
         checkboxSelection
         disableSelectionOnClick
-      />
-    </div>
+      />         
+    )}
+  </div>
   );
 };
 

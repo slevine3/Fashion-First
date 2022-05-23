@@ -1,7 +1,7 @@
 import React from "react";
 import "./WidgetLarge.css";
 import { useState, useEffect } from "react";
-import { userRequest } from "../../requestMethods";
+import { publicRequest, userRequest } from "../../requestMethods";
 import { format } from "timeago.js";
 
 const WidgetLarge = () => {
@@ -11,10 +11,10 @@ const WidgetLarge = () => {
   useEffect(() => {
     const getOrders = async () => {
       try {
-        const ordersResponse = await userRequest.get("/orders");
+        const ordersResponse = await publicRequest.get("/orders");
         setOrders(ordersResponse.data);
 
-        const usersResponse = await userRequest.get(`/users`);
+        const usersResponse = await publicRequest.get(`/users`);
 
         setUsers(usersResponse.data);
       } catch (error) {}
@@ -32,7 +32,7 @@ const WidgetLarge = () => {
         <tbody>
           <tr className="widgetLargeTr">
             <th className="widgetLargeTh">
-              {/* Customer */}
+    
             </th>
             <th className="widgetLargeTh">Date</th>
             <th className="widgetLargeTh">Amount</th>
