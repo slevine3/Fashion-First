@@ -8,7 +8,7 @@ const {
 } = require("./verifyToken");
 
 //CREATE
-router.post("/", verifyTokenAndAdmin, async (req, res) => {
+router.post("/", async (req, res) => {
   const newProduct = new Product(req.body);
 
   try {
@@ -21,7 +21,7 @@ router.post("/", verifyTokenAndAdmin, async (req, res) => {
 
 //UPDATE
 
-router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id,
@@ -37,7 +37,7 @@ router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
 });
 
 //DELETE
-router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     await Product.findByIdAndDelete(req.params.id);
     res.status(200).json("Product has been deleted...");
@@ -66,10 +66,13 @@ router.get("/", async (req, res) => {
     let products;
     if (qNew) {
       products = await Product.find().sort({ createdAt: -1 }).limit(1);
+
     } else if (qCategory) {
       products = await Product.find({ categories: { $in: [qCategory] } });
+
     } else {
       products = await Product.find();
+
     }
     res.status(200).json(products);
   } catch (error) {

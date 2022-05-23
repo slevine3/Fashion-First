@@ -3,19 +3,15 @@ const app = express();
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
-const cors = require('cors')
-app.use(cors())
-
-
+const cors = require("cors");
+app.use(cors());
+const path = require("path");
 const userRoute = require("./routes/user");
 const authRoute = require("./routes/auth");
 const productRoute = require("./routes/product");
 const cartRoute = require("./routes/cart");
 const orderRoute = require("./routes/order");
 const stripeRoute = require("./routes/stripe");
-
-
-
 
 app.use(express.json());
 
@@ -25,6 +21,13 @@ app.use("/api/products", productRoute);
 app.use("/api/cart", cartRoute);
 app.use("/api/orders", orderRoute);
 app.use("/api/checkout", stripeRoute);
+
+app.use(express.static(path.join(__dirname, "build")));
+
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
 
 mongoose
   .connect(process.env.MONGO_URL)
