@@ -12,6 +12,7 @@ const FeaturedInfo = () => {
     const getIncome = async () => {
       try {
         const response = await userRequest.get("/orders/income");
+
         const sortedIncome = response.data.sort((a, b) => a._id - b._id);
 
         setIncome(sortedIncome);
@@ -26,7 +27,7 @@ const FeaturedInfo = () => {
   return (
     <div className="featured">
       <div className="featuredItem">
-        <span className="featuredTitle">Revenue</span>
+        <span className="featuredTitle">Sales</span>
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">${`${income[1]?.total}`}</span>
           <span className="featuredMoneyRate">
