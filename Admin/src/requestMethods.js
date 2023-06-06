@@ -1,5 +1,5 @@
 import axios from "axios";
-
+// Config
 const BASE_URL = "https://fashionfirst.herokuapp.com/api/";
 let TOKEN;
 
