@@ -25,7 +25,6 @@ const Products = ({ cat, filters, sort }) => {
             : "http://localhost:5000/api/products"
         );
         setProducts(response.data);
-        console.log(response)
       } catch (error) {}
     };
     getProducts();
@@ -61,10 +60,10 @@ const Products = ({ cat, filters, sort }) => {
   return (
     <Container>
       {cat
-        ? filteredProducts.map((item) => <Product key={item.id} item={item} />)
+        ? filteredProducts.map((item, i) => <Product key={`${item.id} + ${i}`} item={item} />)
         : products
             .slice(0, 8)
-            .map((item) => <Product key={item.id} item={item} />)}
+            .map((item, i) => <Product key={`${item.id} + ${i+1}`} item={item} />)}
     </Container>
   );
 };
