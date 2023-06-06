@@ -87,7 +87,7 @@ const Register = () => {
 
   const handleClick = async (e) => {
     if (username === "" || email === "" || password === "")
-      setUnknownError("All Fields must me entered");
+     return setUnknownError("All Fields must me entered");
 
     e.preventDefault();
     try {

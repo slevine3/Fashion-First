@@ -88,13 +88,17 @@ const Login = () => {
     e.preventDefault();
     try {
       login(dispatch, { username, password });
-    } catch (error) {}
+    } catch (error) {
+      console.error("login error:", error);
+    }
   };
   const handleDemoLogin = (e) => {
     e.preventDefault();
     try {
-      login(dispatch, { username: "admin", password: "12345" });
-    } catch (error) {}
+      login(dispatch, { username: "demo", password: "12345" });
+    } catch (error) {
+      console.error("demo login error", error);
+    }
   };
 
   return (
