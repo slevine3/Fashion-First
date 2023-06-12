@@ -1,5 +1,1 @@
-{
-  "scripts": {
-    "start": "node server.js"
-  }
-}
+web: node Server/index.js
