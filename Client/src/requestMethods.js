@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000/api/";
+const isProduction = process.env.NODE_ENV === 'production';
+const BASE_URL = isProduction ? process.env.REACT_APP_PROD_BASE_URL : process.env.REACT_APP_LOCAL_BASE_URL;
+
 let TOKEN;
 
 if (
