@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import Product from "./Product";
-import axios from "axios";
 
 import { useState, useEffect } from "react";
+import { userRequest } from "../requestMethods";
 
 const Container = styled.div`
   padding: 20px;
@@ -17,13 +17,10 @@ const Products = ({ cat, filters, sort }) => {
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
+
     const getProducts = async () => {
       try {
-        const response = await axios.get(
-          cat
-            ? `http://localhost:5000/api/products?category=${cat}`
-            : "http://localhost:5000/api/products"
-        );
+        const response = await userRequest.get(   cat ? `/products?category=${cat}` : `/products`);
         setProducts(response.data);
       } catch (error) {}
     };
